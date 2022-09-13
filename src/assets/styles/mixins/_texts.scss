@@ -1,0 +1,9 @@
+@mixin text--regular {
+  font-family: var(--sm-defualt-font-family, 'Arial');
+  font-weight: var(--sm-font-weight-regular, 'regular');
+}
+
+@mixin text--app {
+  @include text--regular;
+  font-size: var(--sm-font-size-medium, 16px);
+}
