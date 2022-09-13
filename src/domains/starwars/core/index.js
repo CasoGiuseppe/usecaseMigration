@@ -1,5 +1,5 @@
 // DTO endpoints
-import { getEndpointDTO } from '../infrastructure/repositories/actuaciones.repository';
+import { getAPI } from '../infrastructure/repositories/actuaciones.repository';
 
 // services
 import storeServices from '../infrastructure/services/store.services';
@@ -22,7 +22,7 @@ const commonServices = {
 };
 
 const commonApi = {
-  get: getEndpointDTO,
+  get: getAPI,
 };
 
 export const UseGetTableContent = getTableListContent({
