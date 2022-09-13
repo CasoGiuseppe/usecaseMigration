@@ -21,7 +21,6 @@ module.exports = {
         semi: true,
       },
     ],
-    indent: ['error', 2],
     'no-multi-spaces': ['error'],
   },
 };
