@@ -11,6 +11,7 @@ import { IEmbeddTarget } from './model/IEmbeddTarget.model';
 
 // use cases
 import { getTableListContent } from './usecase/getTableListContent.usecase';
+
 // destructuring services
 const { hasError, hasInfo } = notificationServices;
 const { handleStoreAction } = storeServices;

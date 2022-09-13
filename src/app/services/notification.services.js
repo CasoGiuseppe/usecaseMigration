@@ -1,4 +1,3 @@
-import Vue from 'vue';
 export default {
   /**
    * handle error notify
@@ -6,10 +5,12 @@ export default {
    * @returns {void}
    */
   hasError: (...args) => {
-    Vue.prototype.$Notification.error(...Object.values(...args));
+    const { message } = args;
+    alert(`it's an error: ${message}`);
   },
 
   hasInfo: (...args) => {
-    Vue.prototype.$Notification.info(...Object.values(...args));
+    const { message } = args;
+    alert(`it's an info: ${message}`);
   },
 };
