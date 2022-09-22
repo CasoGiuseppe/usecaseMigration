@@ -6,15 +6,3 @@ export class ITableMainColumns {
     this.detail = target.url || null;
   }
 }
-
-export class ITableEditColumns {
-  constructor(target = {}) {
-    this.codeModel = target.coModelo || null;
-    this.descriptionModel = target.deModelo || null;
-    this.documentPath = target.direccionDoc || null;
-    this.idModel = target.idModelo || null;
-    this.documentType = target.tiDocu || null;
-    this.dataExtensible = null;
-    this.expand = false;
-  }
-}

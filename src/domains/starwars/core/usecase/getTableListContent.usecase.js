@@ -61,20 +61,20 @@ export const getTableListContent =
       // 1.2 check if array is empty to send info notification
       if (parsedTableColumns.length === 0) onInfo ? onInfo(onInfoState) : null;
 
+      // 2. write data table in store
+      const {
+        // eslint-disable-next-line no-unused-vars
+        $actionName: { tableContent, ...otherAction } = undefined,
+        ...rest
+      } = args;
+      if (!tableContent) return;
+
+      callback({
+        ...rest,
+        $actionName: tableContent,
+        params: parsedTableColumns,
+      });
       return parsedTableColumns;
-
-      // // 2. write data table in store
-      // const {
-      //   $actionName: { tableContent, ...otherAction } = undefined,
-      //   ...rest
-      // } = args;
-      // if (!tableContent) return;
-
-      // callback({
-      //   ...rest,
-      //   $actionName: tableContent,
-      //   params: parsedTableColumns,
-      // });
 
       // // 3.write new form link in store if otherAction param exist
       // if (Object.keys(otherAction).length === 0) return;
