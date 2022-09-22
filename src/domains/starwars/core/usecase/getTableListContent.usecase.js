@@ -63,7 +63,6 @@ export const getTableListContent =
 
       // 2. write data table in store
       const {
-        // eslint-disable-next-line no-unused-vars
         $actionName: { tableContent, ...otherAction } = undefined,
         ...rest
       } = args;
@@ -74,17 +73,16 @@ export const getTableListContent =
         $actionName: tableContent,
         params: parsedTableColumns,
       });
-      return parsedTableColumns;
 
-      // // 3.write new form link in store if otherAction param exist
-      // if (Object.keys(otherAction).length === 0) return;
-      // callback({
-      //   ...rest,
-      //   $actionName: Object.values(otherAction).toString(),
-      //   params: await new IEditNewFormModel(
-      //     new ILinkTargetModel(await get(url))
-      //   ),
-      // });
+      // 3.write new form link in store if otherAction param exist
+      if (Object.keys(otherAction).length === 0) return;
+      callback({
+        ...rest,
+        $actionName: Object.values(otherAction).toString(),
+        params: await new IEditNewFormModel(
+          new ILinkTargetModel(await get(url))
+        ),
+      });
     } catch ({ message }) {
       // 2. notify error to user
       onError ? onError(onErrorState || { message }) : null;

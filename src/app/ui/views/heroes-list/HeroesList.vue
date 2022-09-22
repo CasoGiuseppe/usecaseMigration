@@ -19,25 +19,41 @@ import { CHANGE_HEROES_LIST } from '@/domains/starwars/infrastructure/store/acti
 import { GET_HEROES_LIST } from '@/domains/starwars/infrastructure/store/getters';
 import { storeToRefs } from 'pinia';
 
+// services
+import notificationServices from '@/app/services/notification.services';
+
 // test pina
 const heroesStore = useHeroesStore();
 const heroesRefs = storeToRefs(heroesStore);
 const heroesList = heroesRefs[GET_HEROES_LIST];
 
+// destructuring services
+const { hasLoader } = notificationServices;
+
 onMounted(async () => {
-  // test use case
-  await UseGetTableContent({
-    url: `${API_NAMESPACE}people`,
-    onErrorState: {
-      message: 'Error',
-    },
-    onInfoState: {
-      message: 'info',
-    },
-    $store: heroesStore,
-    $actionName: {
-      tableContent: CHANGE_HEROES_LIST,
-    },
-  });
+  try {
+    // active loader
+    hasLoader({ state: true });
+
+    // test use case
+    await UseGetTableContent({
+      url: `${API_NAMESPACE}people`,
+      onErrorState: {
+        message: 'Error',
+      },
+      onInfoState: {
+        message: 'info',
+      },
+      $store: heroesStore,
+      $actionName: {
+        tableContent: CHANGE_HEROES_LIST,
+      },
+    });
+    // eslint-disable-next-line no-empty
+  } catch (e) {
+  } finally {
+    // remove loader
+    hasLoader({ state: false });
+  }
 });
 </script>

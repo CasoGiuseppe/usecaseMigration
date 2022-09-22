@@ -13,7 +13,6 @@ export const useHeroesStore = defineStore({
 
   actions: {
     [CHANGE_HEROES_LIST](list) {
-      console.log('list', list);
       this.heroes = list;
     },
   },
