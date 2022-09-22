@@ -1,13 +1,9 @@
-import $date from '@/utils/date';
 export class ITableMainColumns {
   constructor(target = {}) {
-    this.numberOrder = target.nuOrdAct || null;
-    this.descriptionAct = target.deAct || null;
-    this.typeAct = target.tiDocu || null;
-    this.dateAct = $date.backToFront(target.feAct) || null;
-    this.codeModel = target.coModelo || null;
-    this.state = target.estado || null;
-    this.documentPath = target.direccionDoc || null;
+    this.birth = target.birth_year || null;
+    this.gender = target.gender || null;
+    this.name = target.name || null;
+    this.detail = target.url || null;
   }
 }
 

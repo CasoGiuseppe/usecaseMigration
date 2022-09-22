@@ -12,6 +12,12 @@ export class MockModel {
   }
 }
 
+export class MockLink {
+  constructor(params) {
+    return new MockTarget(params)?.links;
+  }
+}
+
 // endpoint response mock
 const mockPageResource = url => {
   const responseCases = {
@@ -26,6 +32,7 @@ const mockPageResource = url => {
 
 // services mock
 const mockSetAction = ({ $store, $moduleName, params }) => {
+  // console.log($store, $moduleName, params);
   $store.module[$moduleName].state = params;
 };
 
@@ -45,8 +52,10 @@ export const mockBaseFn = getTableListContent({
   },
   thirdPartServices: mockeServices,
   modelCollection: {
-    IEmbeddTargetModel: payload => new MockTarget(payload),
-    ITableColumns: payload => new MockModel(payload),
+    IEmbeddTargetModel: MockTarget,
+    ITableColumns: MockModel,
+    ILinkTargetModel: MockLink,
+    IEditNewFormModel: MockModel,
   },
 });
 

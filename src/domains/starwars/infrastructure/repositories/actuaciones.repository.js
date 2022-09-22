@@ -1,4 +1,4 @@
-import HTTP from '@/app/services/http.service';
+import { get } from '@/app/services/http.services';
 /**
  * get service from an specific endpoint
  * @param {string} url - endpoint URL
@@ -6,5 +6,5 @@ import HTTP from '@/app/services/http.service';
  */
 export const getAPI = async (url, params = {}) => {
   if (!url) throw new Error('Url param is required');
-  return await HTTP.get(url, params);
+  return await get(url, params);
 };

@@ -2,8 +2,8 @@
 import { getAPI } from '../infrastructure/repositories/actuaciones.repository';
 
 // services
-import storeServices from '../infrastructure/services/store.services';
-import notificationServices from '../infrastructure/services/notification.services';
+import storeServices from '@/app/services/store.services';
+import notificationServices from '@/app/services/notification.services';
 
 // models interfaces
 import { ITableMainColumns } from './model/ITableList.model';
@@ -32,5 +32,7 @@ export const UseGetTableContent = getTableListContent({
   modelCollection: {
     IEmbeddTargetModel: IEmbeddTarget,
     ITableColumns: ITableMainColumns,
+    ILinkTargetModel: IEmbeddTarget,
+    IEditNewFormModel: ITableMainColumns,
   },
 });

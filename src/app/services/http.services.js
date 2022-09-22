@@ -1,11 +1,14 @@
-import { HTTPHeader } from '../partials/constants';
-
-export default {
-  get: async (url) => {
-    const response = await fetch(url, {
-      method: 'GET',
-      HTTPHeader,
-    });
+class Http {
+  /**
+   * @param {string} url - endpoint url
+   * @param  {array} params - all params that endpoint need ( if necessary )
+   * @returns {object} - endpoint response
+   */
+  async get(url, ...params) {
+    const response = await fetch(url, ...params);
     return await response.json();
-  },
-};
+  }
+}
+
+const { get } = new Http();
+export { get };

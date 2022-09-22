@@ -1,7 +1,7 @@
+import { describe, beforeEach, test, expect } from 'vitest';
 import { mockBaseFn, mockThrwoErrorNoFn, MockModel } from './index';
-import { ACTUACIONES_DECANATO } from '../../../partials/constants';
-import { describe, test, expect, beforeEach } from 'vitest';
 
+import { ACTUACIONES_DECANATO } from '../../../partials/constants';
 describe('Usecase: getTableListContent', () => {
   let $store;
   let $notify;
@@ -52,6 +52,7 @@ describe('Usecase: getTableListContent', () => {
       url: 'http://mock_url',
       $store,
       $moduleName: ACTUACIONES_DECANATO,
+      $actionName: { tableContent: 'null' },
     });
 
     expect(Object.keys($store.module[ACTUACIONES_DECANATO].state)).toHaveLength(
@@ -94,6 +95,7 @@ describe('Usecase: getTableListContent', () => {
       },
       $store,
       $moduleName: ACTUACIONES_DECANATO,
+      $actionName: { tableContent: 'null' },
     });
 
     expect($notify.message).toBe(errorMessage);

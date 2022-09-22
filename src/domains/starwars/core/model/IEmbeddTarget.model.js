@@ -1,12 +1,18 @@
 export class IEmbeddTarget {
   constructor(payload = {}) {
-    return payload.data?._embedded;
+    return payload.results;
   }
 }
 
 export class IContentTarget {
   constructor(payload = {}) {
-    return payload.data?.content;
+    return new IDataTarget(payload)?.content;
+  }
+}
+
+export class ILinkTarget {
+  constructor(payload = {}) {
+    return new IDataTarget(payload)?._links;
   }
 }
 

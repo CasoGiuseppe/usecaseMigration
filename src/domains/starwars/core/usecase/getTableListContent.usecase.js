@@ -15,7 +15,12 @@ export const getTableListContent =
   ({
     repositoryServices: { get },
     thirdPartServices: { callback, onError, onInfo } = {},
-    modelCollection: { IEmbeddTargetModel, ITableColumns },
+    modelCollection: {
+      IEmbeddTargetModel,
+      ITableColumns,
+      ILinkTargetModel,
+      IEditNewFormModel,
+    },
   }) =>
   async ({ url, onErrorState, onInfoState, ...args }) => {
     // 0. handle errors
@@ -32,10 +37,12 @@ export const getTableListContent =
         'UseCase > getTableListContent > repositoryServices get is not a function'
       );
 
-    // 0.3 check if IEmbeddTargetModel and ITableColumns models are a class
+    // 0.3 check if IEmbeddTargetModel, ITableColumns, ILinkTargetModel models are a class
     const requiredClass = [
       IEmbeddTargetModel.prototype,
       ITableColumns.prototype,
+      ILinkTargetModel.prototype,
+      IEditNewFormModel.prototype,
     ];
     if (requiredClass.some((node) => node === undefined))
       throw new Error(
@@ -51,14 +58,33 @@ export const getTableListContent =
         return new ITableColumns(node);
       });
 
-      // 1.2 check if array is empty to send info notificatio
+      // 1.2 check if array is empty to send info notification
       if (parsedTableColumns.length === 0) onInfo ? onInfo(onInfoState) : null;
 
-      // 2 write data in store
-      callback({
-        ...args,
-        params: parsedTableColumns,
-      });
+      return parsedTableColumns;
+
+      // // 2. write data table in store
+      // const {
+      //   $actionName: { tableContent, ...otherAction } = undefined,
+      //   ...rest
+      // } = args;
+      // if (!tableContent) return;
+
+      // callback({
+      //   ...rest,
+      //   $actionName: tableContent,
+      //   params: parsedTableColumns,
+      // });
+
+      // // 3.write new form link in store if otherAction param exist
+      // if (Object.keys(otherAction).length === 0) return;
+      // callback({
+      //   ...rest,
+      //   $actionName: Object.values(otherAction).toString(),
+      //   params: await new IEditNewFormModel(
+      //     new ILinkTargetModel(await get(url))
+      //   ),
+      // });
     } catch ({ message }) {
       // 2. notify error to user
       onError ? onError(onErrorState || { message }) : null;
