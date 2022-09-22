@@ -31,3 +31,44 @@ body {
   justify-content: center;
   min-height: max(100vh, 100%);
 }
+
+.is-loading {
+  @include spinner(60, 15, var(--sm-c-yellow-300));
+
+  animation-name: loading;
+  animation-duration: .8s;
+  animation-timing-function: var(--sm-ease-out);
+  animation-fill-mode: forwards;
+}
+
+.is-blocked {
+  max-height: 100vh;
+  position: relative;
+  overflow: hidden;
+
+  &:before {
+    @include keyAnimation(appear) {
+      0% {
+        background: rgba(#000, 0);
+      }
+
+      100% {
+        background: rgba(#000, .6);
+      }
+    }
+
+    ;
+
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+
+    content: '';
+
+    animation-name: appear;
+    animation-duration: .6s;
+    animation-timing-function: --sm-ease-out;
+    animation-fill-mode: forwards;
+  }
+}

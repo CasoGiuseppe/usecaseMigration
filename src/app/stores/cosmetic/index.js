@@ -4,6 +4,9 @@ import { BASE_COSMETIC_STORE } from '@/app/partials/constants';
 // actions
 import { CHANGE_LOADER_STATE } from './actions';
 
+// getters
+import getters from './getters';
+
 export const useCosmeticStore = defineStore({
   id: 'cosmetic',
   state: () => BASE_COSMETIC_STORE,
@@ -13,4 +16,6 @@ export const useCosmeticStore = defineStore({
       this.hasLoader.state = state;
     },
   },
+
+  getters,
 });
