@@ -13,13 +13,14 @@ import { IEmbeddTarget } from './model/IEmbeddTarget.model';
 import { getTableListContent } from './usecase/getTableListContent.usecase';
 
 // destructuring services
-const { hasError, hasInfo } = notificationServices;
+const { hasError, hasInfo, hasLoader } = notificationServices;
 const { handleStoreAction } = storeServices;
 
 const commonServices = {
   callback: handleStoreAction,
   onError: hasError,
   onInfo: hasInfo,
+  onLoader: hasLoader,
 };
 
 const commonApi = {

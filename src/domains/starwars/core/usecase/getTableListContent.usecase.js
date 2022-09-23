@@ -14,7 +14,7 @@
 export const getTableListContent =
   ({
     repositoryServices: { get },
-    thirdPartServices: { callback, onError, onInfo } = {},
+    thirdPartServices: { callback, onError, onInfo, onLoader } = {},
     modelCollection: {
       IEmbeddTargetModel,
       ITableColumns,
@@ -50,6 +50,8 @@ export const getTableListContent =
       );
 
     try {
+      onLoader({ state: true });
+
       // 1. launch table endpoint
       const targetObjectResponse = await new IEmbeddTargetModel(await get(url));
 
@@ -87,5 +89,7 @@ export const getTableListContent =
       // 2. notify error to user
       onError ? onError(onErrorState || { message }) : null;
       throw new Error(message);
+    } finally {
+      onLoader({ state: false });
     }
   };
