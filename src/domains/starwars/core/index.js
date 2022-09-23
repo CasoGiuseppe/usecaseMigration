@@ -11,16 +11,25 @@ import { IEmbeddTarget } from './model/IEmbeddTarget.model';
 
 // use cases
 import { getTableListContent } from './usecase/getTableListContent.usecase';
+import { setUserNotification } from './usecase/setUserNotification.usecase';
 
 // destructuring services
 const { hasError, hasInfo, hasLoader } = notificationServices;
 const { handleStoreAction } = storeServices;
 
-const commonServices = {
-  callback: handleStoreAction,
+export const UseNotifications = setUserNotification({
   onError: hasError,
   onInfo: hasInfo,
   onLoader: hasLoader,
+});
+
+const { onErrorMessage, onInfoMessage, onLoaderState } = UseNotifications();
+
+const commonServices = {
+  callback: handleStoreAction,
+  onError: onErrorMessage,
+  onInfo: onInfoMessage,
+  onLoader: onLoaderState,
 };
 
 const commonApi = {

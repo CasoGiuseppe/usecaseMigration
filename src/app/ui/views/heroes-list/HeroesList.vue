@@ -9,7 +9,7 @@
 import { onMounted } from 'vue';
 // constants
 import { API_NAMESPACE } from '@/app/partials/constants';
-
+import { GENERIC_ERROR } from '@/app/partials/messages';
 // usecases
 import { UseGetTableContent } from '@/domains/starwars/core';
 
@@ -30,7 +30,9 @@ onMounted(async () => {
     await UseGetTableContent({
       url: `${API_NAMESPACE}people`,
       onErrorState: {
-        message: 'Error',
+        state: true,
+        type: 'error',
+        message: GENERIC_ERROR,
       },
       onInfoState: {
         message: 'info',
@@ -40,7 +42,6 @@ onMounted(async () => {
         tableContent: CHANGE_HEROES_LIST,
       },
     });
-    // eslint-disable-next-line no-empty
   } catch (e) {}
 });
 </script>
