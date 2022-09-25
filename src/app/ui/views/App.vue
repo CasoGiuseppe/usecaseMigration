@@ -2,15 +2,19 @@
   <section
     :class="[loaderStore.state ? 'is-loading is-blocked' : null, 'root-layout']"
   >
-    {{ notificationStore.state }}
     <RouterView />
-    <Notification
-      @close="closeNotification"
-      :state="notificationStore.state"
-      :type="notificationStore.type"
-    >
-      <template #message> {{ notificationStore.message }} </template>
-    </Notification>
+
+    <!-- notification module-->
+    <transition mode="out-in" name="appear-notify">
+      <Notification
+        v-if="notificationStore.state"
+        @close="closeNotification"
+        :state="notificationStore.state"
+        :type="notificationStore.type"
+      >
+        <template #message> {{ notificationStore.message }} </template>
+      </Notification>
+    </transition>
   </section>
 </template>
 

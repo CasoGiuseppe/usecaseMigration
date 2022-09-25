@@ -4,5 +4,6 @@ export class ITableMainColumns {
     this.gender = target.gender || null;
     this.name = target.name || null;
     this.detail = target.url || null;
+    this.height = target.height || null;
   }
 }

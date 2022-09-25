@@ -1,0 +1,10 @@
+.heroes-list {
+  $heroeslist: &;
+  width: min(100%, 70vw);
+
+  &__row {
+    +#{$heroeslist}__row {
+      margin-top: .5rem;
+    }
+  }
+}

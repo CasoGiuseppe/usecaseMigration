@@ -13,6 +13,10 @@
 html,
 body {
   @include text--app;
+  @include create-animation($name: 'appear-notify',
+    $from: translateY(-100%),
+    $to: translateY(0),
+    $duration: .5s);
 
   min-height: 100%;
   margin: 0;
@@ -30,6 +34,7 @@ body {
   flex-direction: column;
   justify-content: center;
   min-height: max(100vh, 100%);
+  padding: 2vh 2vw
 }
 
 .is-loading {

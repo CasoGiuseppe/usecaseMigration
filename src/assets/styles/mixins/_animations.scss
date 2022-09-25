@@ -1,3 +1,40 @@
+@mixin create-animation($name: 'slide',
+  $init: translateY(0) translateX(0),
+  $from: translateX(100%),
+  $to: translateX(100%),
+  $duration: .4s,
+  $duration-out: .6s,
+  $delay: 0s,
+) {
+
+  .#{$name}-leave,
+  .#{$name}-enter-to {
+    opacity: 1;
+    transform: $init
+  }
+
+  .#{$name}-leave-active,
+  .#{$name}-enter-active {
+    transition: transform $duration var(--sm-ease-out, linear) $delay,
+      opacity $duration var(--sm-ease-out, linear) $delay;
+  }
+
+  .#{$name}-leave-active {
+    transition-duration: $duration-out;
+    transition-timing-function: var(--sm-ease-out, linear)
+  }
+
+  .#{$name}-leave-to {
+    opacity: 0;
+    transform: $to;
+  }
+
+  .#{$name}-enter-from {
+    opacity: 0;
+    transform: $from
+  }
+}
+
 @mixin spinner($size, $borderSize, $color, $message: '') {
   &::after {
     display: block;
