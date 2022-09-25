@@ -24,17 +24,14 @@
 </template>
 
 <script setup lang="ts">
-const clickEmit = defineEmits(["handleClick"]);
-const handleClick = (id: number | string): void => clickEmit("handleClick", id);
-
 defineProps({
   id: {
     type: [String, Number],
-    default: "test",
+    default: 'test',
   },
   mode: {
     type: String,
-    default: "basic",
+    default: 'basic',
   },
   isDisabled: {
     type: Boolean,
@@ -50,5 +47,8 @@ defineProps({
   },
   extraInfo: [String, Number],
 });
+
+const clickEmit = defineEmits(['handleClick']);
+const handleClick = (id) => clickEmit('handleClick', id);
 </script>
 <style lang="scss" src="./BaseButton.scss" />

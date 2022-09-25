@@ -17,8 +17,10 @@
           class="heroes-list__row"
         >
           <BaseBadge
+            :code="hero['name']"
             :properties="filterRow(hero).rest"
             :link="filterRow(hero).detail"
+            @handle-click="handleTableContent.loadContent"
           >
             <template #properties="{ property }">{{
               Object.values(property).toString()
@@ -55,12 +57,14 @@
 import { computed, ref, watch } from 'vue';
 
 // constants
-
 import { GENERIC_ERROR, NO_ITEMS } from '@/app/partials/messages';
 import { NEXT_PAGE, PREV_PAGE } from '@/app/partials/labels';
 
 // usecases
-import { UseGetTableContent } from '@/domains/starwars/core';
+import {
+  UseGetTableContent,
+  UseTableBehaviours,
+} from '@/domains/starwars/core';
 
 // store
 import { useHeroesStore } from '@/domains/starwars/infrastructure/store';
@@ -93,6 +97,24 @@ const filterRow = (row) => {
 const endpoint = ref(null);
 const setEndpoint = (id) =>
   (endpoint.value = heroesStore[GET_HEROES_LINKS]({ type: id }));
+
+// handle table behaviours
+const handleTableContent = {
+  loadContent: async ({ code, link: url }) => {
+    console.log(code, url);
+    const { handleLoadContent } = UseTableBehaviours();
+    console.log(
+      await handleLoadContent({
+        url,
+        onErrorState: {
+          state: true,
+          type: 'error',
+          message: GENERIC_ERROR,
+        },
+      })
+    );
+  },
+};
 
 // detect endpoint value change and launch API call
 watch(endpoint, async (url) => {

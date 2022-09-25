@@ -6,12 +6,17 @@ import storeServices from '@/app/services/store.services';
 import notificationServices from '@/app/services/notification.services';
 
 // models interfaces
-import { ITableMainColumns, ITableLinks } from './model/ITableList.model';
+import {
+  ITableMainColumns,
+  ITableLinks,
+  ITableDetails,
+} from './model/ITableList.model';
 import { IEmbeddTarget, IDataTarget } from './model/IEmbeddTarget.model';
 
 // use cases
 import { getTableListContent } from './usecase/getTableListContent.usecase';
 import { setUserNotification } from './usecase/setUserNotification.usecase';
+import { handleTableBehaviours } from './usecase/handleTableBehaviours.usecase';
 
 // destructuring services
 const { hasError, hasInfo, hasLoader } = notificationServices;
@@ -45,4 +50,10 @@ export const UseGetTableContent = getTableListContent({
     ILinkTargetModel: IDataTarget,
     IEditNewFormModel: ITableLinks,
   },
+});
+
+export const UseTableBehaviours = handleTableBehaviours({
+  repositoryServices: commonApi,
+  thirdPartServices: commonServices,
+  model: ITableDetails,
 });
