@@ -51,9 +51,11 @@ export const getTableListContent =
 
     try {
       onLoader({ state: true });
+      const response = await get(url);
 
+      console.log(response);
       // 1. launch table endpoint
-      const targetObjectResponse = await new IEmbeddTargetModel(await get(url));
+      const targetObjectResponse = await new IEmbeddTargetModel(response);
 
       // 1.1 parse response and return table model
       const parsedTableColumns = targetObjectResponse.map((node) => {
@@ -78,12 +80,11 @@ export const getTableListContent =
 
       // 3.write new form link in store if otherAction param exist
       if (Object.keys(otherAction).length === 0) return;
+
       callback({
         ...rest,
         $actionName: Object.values(otherAction).toString(),
-        params: await new IEditNewFormModel(
-          new ILinkTargetModel(await get(url))
-        ),
+        params: await new IEditNewFormModel(new ILinkTargetModel(response)),
       });
     } catch ({ message }) {
       // 2. notify error to user

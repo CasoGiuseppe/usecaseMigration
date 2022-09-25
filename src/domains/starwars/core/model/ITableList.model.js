@@ -7,3 +7,10 @@ export class ITableMainColumns {
     this.height = target.height || null;
   }
 }
+
+export class ITableLinks {
+  constructor(target = {}) {
+    this.prev = target.previous || null;
+    this.next = target.next || null;
+  }
+}

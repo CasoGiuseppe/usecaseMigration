@@ -14,3 +14,5 @@ export const BASE_COSMETIC_STORE = {
     message: null,
   },
 };
+
+export const BASE_ENDPOINT = 'people/';

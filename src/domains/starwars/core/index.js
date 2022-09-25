@@ -6,8 +6,8 @@ import storeServices from '@/app/services/store.services';
 import notificationServices from '@/app/services/notification.services';
 
 // models interfaces
-import { ITableMainColumns } from './model/ITableList.model';
-import { IEmbeddTarget } from './model/IEmbeddTarget.model';
+import { ITableMainColumns, ITableLinks } from './model/ITableList.model';
+import { IEmbeddTarget, IDataTarget } from './model/IEmbeddTarget.model';
 
 // use cases
 import { getTableListContent } from './usecase/getTableListContent.usecase';
@@ -42,7 +42,7 @@ export const UseGetTableContent = getTableListContent({
   modelCollection: {
     IEmbeddTargetModel: IEmbeddTarget,
     ITableColumns: ITableMainColumns,
-    ILinkTargetModel: IEmbeddTarget,
-    IEditNewFormModel: ITableMainColumns,
+    ILinkTargetModel: IDataTarget,
+    IEditNewFormModel: ITableLinks,
   },
 });

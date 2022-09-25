@@ -2,9 +2,31 @@
   $heroeslist: &;
   width: min(100%, 70vw);
 
+  &__table {
+    +#{$heroeslist}__footer {
+      margin-top: px2rem(20);
+    }
+  }
+
   &__row {
     +#{$heroeslist}__row {
       margin-top: .5rem;
+    }
+  }
+
+  &__footer {
+    &__list {
+      display: flex;
+
+      >li {
+        display: flex;
+        flex: 1;
+        justify-content: flex-start;
+
+        +li {
+          justify-content: flex-end;
+        }
+      }
     }
   }
 }
