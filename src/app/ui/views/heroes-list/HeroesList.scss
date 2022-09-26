@@ -1,6 +1,7 @@
 .heroes-list {
   $heroeslist: &;
-  width: min(100%, 70vw);
+  width: 100%;
+  max-width: px2rem(650);
 
   &__table {
     +#{$heroeslist}__footer {

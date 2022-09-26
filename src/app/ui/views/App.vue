@@ -2,7 +2,13 @@
   <section
     :class="[loaderStore.state ? 'is-loading is-blocked' : null, 'root-layout']"
   >
-    <RouterView />
+    <header class="root-layout__header">
+      <h1>Starwars Heroes</h1>
+    </header>
+
+    <section class="root-layout__content">
+      <RouterView />
+    </section>
 
     <!-- notification module-->
     <transition mode="out-in" name="appear-notify">

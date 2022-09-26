@@ -24,17 +24,43 @@ body {
 }
 
 #app {
+  display: flex;
   height: 100vh;
+  justify-content: flex-start;
   overflow: auto;
 }
 
 .root-layout {
-  align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: max(100vh, 100%);
-  padding: 2vh 2vw
+  width: 100%;
+
+  >* {
+    padding: 2vh 2vw;
+  }
+
+  &__header {
+    @include text--big;
+
+    flex: 0 0 5vh;
+    position: sticky;
+    right: 0;
+    top: 0;
+
+    background: var(--sm-c-white);
+    border-bottom: 1px solid var(--sm-c-gray-200);
+    box-shadow: 2px 0px 3px 3px rgba(0, 0, 0, 0.05);
+    z-index: 2;
+  }
+
+  &__content {
+    align-items: center;
+    display: flex;
+    flex: 2;
+    justify-content: center;
+  }
 }
 
 .is-loading {
@@ -44,6 +70,7 @@ body {
   animation-duration: .8s;
   animation-timing-function: var(--sm-ease-out);
   animation-fill-mode: forwards;
+
 }
 
 .is-blocked {
@@ -67,7 +94,7 @@ body {
     height: 100%;
     position: absolute;
     width: 100%;
-    z-index: 1;
+    z-index: 3;
 
     content: '';
 

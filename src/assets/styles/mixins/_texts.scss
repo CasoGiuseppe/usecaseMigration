@@ -8,6 +8,11 @@
   font-size: var(--sm-font-size-medium, 16px);
 }
 
+@mixin text--big {
+  @include text--regular;
+  font-size: var(--sm-font-size-big, 18px);
+}
+
 @mixin text--small {
   @include text--regular;
   font-size: var(--sm-font-size-small, 14px);

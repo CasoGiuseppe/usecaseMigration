@@ -1,6 +1,5 @@
 <template>
   <section class="heroes-list">
-    <h1>Heroe list</h1>
     <transition-group
       appear
       tag="ul"
