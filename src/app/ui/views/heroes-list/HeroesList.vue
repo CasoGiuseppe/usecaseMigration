@@ -19,12 +19,19 @@
           <BaseBadge
             :code="hero['name']"
             :properties="filterRow(hero).rest"
+            :content="heroeContent({ code: `${hero['name']}` })"
             :link="filterRow(hero).detail"
             @handle-click="handleTableContent.loadContent"
           >
             <template #properties="{ property }">{{
               Object.values(property).toString()
             }}</template>
+            <template
+              v-if="heroeContent({ code: hero['name'] })"
+              #dropdown="{ content }"
+            >
+              {{ Object.values(content).toString() }}
+            </template>
           </BaseBadge>
         </li>
       </template>
@@ -71,10 +78,12 @@ import { useHeroesStore } from '@/domains/starwars/infrastructure/store';
 import {
   CHANGE_HEROES_LIST,
   CHANGE_HEROES_LINKS,
+  CHANGE_HEROE_DETAIL,
 } from '@/domains/starwars/infrastructure/store/actions';
 import {
   GET_HEROES_LIST,
   GET_HEROES_LINKS,
+  GET_HEROE_CONTENT,
 } from '@/domains/starwars/infrastructure/store/getters';
 import { storeToRefs } from 'pinia';
 
@@ -87,9 +96,11 @@ const heroesStore = useHeroesStore();
 const heroesRefs = storeToRefs(heroesStore);
 const heroesList = heroesRefs[GET_HEROES_LIST];
 const heroesLinks = computed(() => heroesStore[GET_HEROES_LINKS]);
+const heroeContent = computed(() => heroesStore[GET_HEROE_CONTENT]);
 
 const filterRow = (row) => {
-  const { detail, ...rest } = row;
+  // eslint-disable-next-line no-unused-vars
+  const { detail, content, ...rest } = row;
   return { detail, rest };
 };
 
@@ -101,18 +112,32 @@ const setEndpoint = (id) =>
 // handle table behaviours
 const handleTableContent = {
   loadContent: async ({ code, link: url }) => {
-    console.log(code, url);
-    const { handleLoadContent } = UseTableBehaviours();
-    console.log(
-      await handleLoadContent({
-        url,
-        onErrorState: {
-          state: true,
-          type: 'error',
-          message: GENERIC_ERROR,
-        },
-      })
-    );
+    // check if heroe has dropdown content
+    const hasContent = heroesStore[GET_HEROE_CONTENT]({ code });
+    if (hasContent) {
+      heroesStore[CHANGE_HEROE_DETAIL]({ code, attach: null });
+      return;
+    }
+
+    const { handleLoadContent, handleAttachContent } = UseTableBehaviours();
+    const attachHeroe = await handleLoadContent({
+      url,
+      onErrorState: {
+        state: true,
+        type: 'error',
+        message: GENERIC_ERROR,
+      },
+    });
+
+    // heroe hasn't content
+    if (!attachHeroe) return;
+
+    handleAttachContent({
+      code,
+      attach: attachHeroe,
+      $store: heroesStore,
+      $actionName: CHANGE_HEROE_DETAIL,
+    });
   },
 };
 

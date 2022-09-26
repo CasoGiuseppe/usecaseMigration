@@ -15,6 +15,14 @@
         ></button>
       </li>
     </ul>
+    <aside v-if="$slots['dropdown']" class="base-badge__dropdown">
+      <h3 class="base-badge__dropdown-title">Planet info</h3>
+      <ul>
+        <li v-for="value in content" :key="value">
+          <slot :content="{ value }" name="dropdown" />
+        </li>
+      </ul>
+    </aside>
   </article>
 </template>
 
@@ -33,6 +41,10 @@ const prop = defineProps({
   link: {
     type: String,
     default: null,
+  },
+  content: {
+    type: Object,
+    default: () => {},
   },
 });
 

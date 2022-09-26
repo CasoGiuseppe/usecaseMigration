@@ -5,6 +5,7 @@ export class ITableMainColumns {
     this.name = target.name || null;
     this.detail = target.homeworld || null;
     this.height = target.height || null;
+    this.content = null;
   }
 }
 

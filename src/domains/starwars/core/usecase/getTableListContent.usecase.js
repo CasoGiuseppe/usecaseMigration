@@ -50,10 +50,9 @@ export const getTableListContent =
       );
 
     try {
-      onLoader({ state: true });
+      onLoader ? onLoader({ state: true }) : null;
       const response = await get(url);
 
-      console.log(response);
       // 1. launch table endpoint
       const targetObjectResponse = await new IEmbeddTargetModel(response);
 
@@ -91,6 +90,6 @@ export const getTableListContent =
       onError ? onError(onErrorState || { message }) : null;
       throw new Error(message);
     } finally {
-      onLoader({ state: false });
+      onLoader ? onLoader({ state: false }) : null;
     }
   };

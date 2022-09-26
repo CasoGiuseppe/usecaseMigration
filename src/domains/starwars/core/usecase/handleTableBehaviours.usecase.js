@@ -14,7 +14,7 @@
 export const handleTableBehaviours =
   ({
     repositoryServices: { get },
-    thirdPartServices: { callback, onError },
+    thirdPartServices: { callback, onError, onLoader },
     model = {},
   }) =>
   () => {
@@ -58,6 +58,7 @@ export const handleTableBehaviours =
         );
 
       try {
+        onLoader ? onLoader({ state: true }) : null;
         // 1. launch query to get document content structure
         const document = await get(url);
         return new model(document);
@@ -65,6 +66,8 @@ export const handleTableBehaviours =
         // 2. notify error to user
         onError ? onError(onErrorState || { message }) : null;
         throw new Error(message);
+      } finally {
+        onLoader ? onLoader({ state: false }) : null;
       }
     };
 
